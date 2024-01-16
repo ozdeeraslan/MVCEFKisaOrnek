@@ -1,0 +1,59 @@
+﻿@model List<OzluSoz>
+@{
+    ViewData["Title"] = "Özlü Sözler";
+}
+
+<form method="get" asp-controller="Home" asp-action="Index" class="row g-3">
+    <div class="col-auto">
+        <label for="ara" class="col-form-label">Arama Sözcügü</label>
+    </div>
+    <div class="col-auto">
+        <input type="text" class="form-control" id="ara" name="ara" placeholder="Ara..">
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-primary mb-3">Arama Yap</button>
+    </div>
+</form>
+
+<h1>Özlü Sözler</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Söz</th>
+            <th>Yazar</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var soz in Model)
+        {
+            <tr>
+                <td>@soz.Id</td>
+                <td>@soz.Soz</td>
+                <td>@soz.Yazar</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<nav class="d-flex">
+    <ul class="pagination mx-auto">
+        <li class="page-item">
+            <a class="page-link" href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        @for (int i = 1; i <= ViewBag.TotalPages; i++)
+        {
+            <li class="page-item @(ViewBag.CurrentPage == i ? "btn-primary" : "btn-secondary")"><a class="page-link" asp-route-sayfa="@i">@i</a></li>
+            
+        }
+
+        <li class="page-item">
+            <a class="page-link" href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
